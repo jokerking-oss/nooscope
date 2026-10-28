@@ -1,0 +1,86 @@
+@import '@/styles/variables.scss';
+
+/* ─────────────────────────────────────────────────────────────
+   The subject-select dock, floating in the upper-left of the
+   viewport. Reads as a row of engraved index tabs.
+   ───────────────────────────────────────────────────────────── */
+
+.dock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+}
+
+.subjects {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    padding: 0.2rem;
+    background: rgba(10, 12, 17, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 24px -10px rgba(0, 0, 0, 0.9);
+}
+
+.subject {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0.3rem 0.55rem;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
+}
+
+.subject:hover {
+    color: var(--amber-bright);
+    background: rgba(232, 163, 61, 0.08);
+}
+
+/* the selected subject carries the amber filament */
+.subjectActive {
+    color: var(--amber-bright);
+    background: rgba(232, 163, 61, 0.12);
+    border-color: rgba(232, 163, 61, 0.35);
+}
+
+.tools {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    align-self: flex-start;
+    padding: 0.2rem;
+    background: rgba(10, 12, 17, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 24px -10px rgba(0, 0, 0, 0.9);
+}
+
+.tool {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    border-radius: 3px;
+    border: 1px solid transparent;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
+}
+
+.tool:hover {
+    color: var(--cyan);
+    background: rgba(86, 200, 216, 0.1);
+    border-color: rgba(86, 200, 216, 0.3);
+}

@@ -416,9 +416,10 @@ export function dimStyleTextShort(style: DimStyle) {
 }
 
 export const Colors = {
-    Weights: new Vec4(0.3, 0.3, 1.0),
-    Intermediates: new Vec4(0.4, 0.8, 0.4),
-    Aggregates: new Vec4(1.0, 0.8, 0.3), // a yellowish color
+    // NOOSCOPE palette — cold instrument, warm signal
+    Weights: new Vec4(0.42, 0.60, 0.68),    // 青灰: the learned substrate
+    Intermediates: new Vec4(0.91, 0.64, 0.24), // 琥珀: activation in flight
+    Aggregates: new Vec4(0.85, 0.80, 0.72),  // 骨白: accumulated result
 
     Black: new Vec4(0, 0, 0),
 }

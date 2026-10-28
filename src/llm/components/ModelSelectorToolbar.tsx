@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Vec3 } from '@/src/utils/vector';
 import { Mat4f } from '@/src/utils/matrix';
+import s from './ModelSelectorToolbar.module.scss';
 
 export const ModelSelectorToolbar: React.FC<{
 }> = () => {
@@ -26,9 +27,9 @@ export const ModelSelectorToolbar: React.FC<{
             progState.markDirty();
         }
 
-        return <div className={clsx('m-2 px-2 py-1 rounded shadow cursor-pointer hover:bg-blue-300', isActive ? 'bg-blue-200' : 'bg-white')} onClick={handleClick}>
+        return <button className={clsx(s.subject, isActive && s.subjectActive)} onClick={handleClick}>
             {example.name}
-        </div>;
+        </button>;
     }
 
     function onExpandClick() {
@@ -40,10 +41,6 @@ export const ModelSelectorToolbar: React.FC<{
     function onMagnifyClick() {
         let example = progState.examples[progState.currExampleId] ?? progState.mainExample;
         let layout = example.layout ?? progState.layout;
-
-        // new Vec3(3.347, 48.000, -2.634), new Vec3(270.000, 4.500, 1.199)
-
-        // new Vec3(-1.771, 0.750, -4.470), new Vec3(270.000, 4.500, 0.739)
 
         let obj = layout.residual0;
         let modelTarget = new Vec3(obj.x, obj.y, obj.z);
@@ -58,21 +55,20 @@ export const ModelSelectorToolbar: React.FC<{
 
     }
 
-    return <div className='absolute top-0 left-0 flex flex-col'>
-        <div className='mt-2 ml-2 flex flex-row'>
+    return <div className={s.dock}>
+        <div className={s.subjects}>
             {makeButton(0)}
             {makeButton(-1)}
             {makeButton(1)}
             {makeButton(2)}
         </div>
-        <div className='ml-2 flex flex-row'>
-            <div className={clsx('m-2 p-2 bg-white min-w-[2rem] flex justify-center rounded shadow cursor-pointer hover:bg-blue-300')} onClick={onExpandClick}>
+        <div className={s.tools}>
+            <button className={s.tool} onClick={onExpandClick} aria-label="Fit view">
                 <FontAwesomeIcon icon={faExpand} />
-            </div>
-            <div className={clsx('m-2 p-2 bg-white min-w-[2rem] flex justify-center rounded shadow cursor-pointer hover:bg-blue-300')} onClick={onMagnifyClick}>
+            </button>
+            <button className={s.tool} onClick={onMagnifyClick} aria-label="Focus origin">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
+            </button>
         </div>
     </div>;
-
 };

@@ -1,36 +1,49 @@
+@import '@/styles/variables.scss';
+
+/* ─────────────────────────────────────────────────────────────
+   The vertical transport rail: a thin engraved track with an
+   amber playhead. The horizontal variant runs under each gate.
+   ───────────────────────────────────────────────────────────── */
 
 .timelineBase {
     position: relative;
     flex: 1;
-    /* background-color: rgba(0, 255, 0, 0.1); */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     pointer-events: none;
+    padding: 2px 0;
 }
 
 .timelineLine {
-    width: 5px;
-    border-radius: 8px;
+    width: 1px;
     flex: 1;
-    background-color: rgb(204, 204, 223);
+    background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.16) 50%,
+        rgba(255, 255, 255, 0.06) 100%);
 }
 
+/* the playhead: a lit amber lozenge on the rail */
 .timelineCaret {
     position: absolute;
     transform: translateY(-50%);
-    background-color: rgb(12, 111, 223);
-    width: 10px;
-    height: 10px;
-    border-radius: 40px;
+    background: var(--amber-bright);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 2px rgba(232, 163, 61, 0.18),
+        0 0 10px 1px rgba(232, 163, 61, 0.6);
+    transition: none;
 }
 
 .timelineCaretHit {
     position: absolute;
     transform: translateY(-50%);
     cursor: pointer;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     width: 32px;
     height: 32px;
     border-radius: 40px;
@@ -39,10 +52,8 @@
 
 .timelineEvt {
     position: absolute;
-    /* transform: translateY(-50%); */
-    background-color: #a1a1a1;
+    background-color: rgba(255, 255, 255, 0.14);
     width: 1px;
-    border-radius: 40px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -51,55 +62,59 @@
 .timelineEvtStart {
     position: absolute;
     transform: translateY(-50%);
-    background-color: #a1a1a1;
-    width: 5px;
-    height: 5px;
-    border-radius: 40px;
+    background-color: var(--text-faint);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
 }
 
 .timelineEvtEnd {
     position: absolute;
     bottom: 0;
-    background-color: #a1a1a1;
-    width: 5px;
+    background-color: var(--text-faint);
+    width: 4px;
     height: 1px;
 }
 
-/* ---------   Everything repeated but *Horiz   --------- */
+/* ──────────────  horizontal variant  ────────────── */
+
 .timelineBaseHoriz {
     position: relative;
     flex: 1;
-    // background-color: rgba(0, 255, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     cursor: pointer;
     height: 14px;
-    // pointer-events: none;
 }
 
 .timelineLineHoriz {
-    height: 5px;
-    border-radius: 8px;
+    height: 1px;
     flex: 1;
-    background-color: rgb(204, 204, 223);
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.16) 50%,
+        rgba(255, 255, 255, 0.06) 100%);
 }
 
 .timelineCaretHoriz {
     position: absolute;
     transform: translateX(-50%);
-    background-color: rgb(12, 111, 223);
-    width: 10px;
-    height: 10px;
-    border-radius: 40px;
+    background: var(--amber-bright);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 2px rgba(232, 163, 61, 0.18),
+        0 0 10px 1px rgba(232, 163, 61, 0.6);
 }
 
 .timelineCaretHitHoriz {
     position: absolute;
     transform: translateX(-50%);
     cursor: pointer;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     width: 32px;
     height: 32px;
     border-radius: 40px;
@@ -108,10 +123,8 @@
 
 .timelineEvtHoriz {
     position: absolute;
-    /* transform: translateY(-50%); */
-    background-color: #a1a1a1;
+    background-color: rgba(255, 255, 255, 0.14);
     height: 1px;
-    border-radius: 40px;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -120,16 +133,16 @@
 .timelineEvtStartHoriz {
     position: absolute;
     transform: translateX(-50%);
-    background-color: #a1a1a1;
-    width: 5px;
-    height: 5px;
-    border-radius: 40px;
+    background-color: var(--text-faint);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
 }
 
 .timelineEvtEndHoriz {
     position: absolute;
     right: 0;
-    background-color: #a1a1a1;
+    background-color: var(--text-faint);
     width: 1px;
-    height: 5px;
+    height: 4px;
 }

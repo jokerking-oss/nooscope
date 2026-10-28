@@ -1,15 +1,21 @@
+@import '@/styles/variables.scss';
+
+/* ─────────────────────────────────────────────────────────────
+   The architecture diagram, drawn on the dark field.
+   ───────────────────────────────────────────────────────────── */
 
 .tocDiagram {
     display: flex;
 
     svg {
-        // flex: 1;
-        // background-color: rgba(red, 0.1);
+        // labels ride on top of the cells
+        text {
+            fill: var(--text);
+        }
     }
 }
 
 .toc {
-    // width: 180px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -17,36 +23,53 @@
 }
 
 .tocTitle {
-    font-size: 1.1rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 400;
     text-align: center;
-    margin: 10px 0 4px;
+    margin: 0.5rem 0 0.3rem;
+    color: var(--text);
 }
 
 .tocGroupTitle {
-    font-size: 0.8rem;
-    opacity: 0.8;
-    padding: 4px 0 0;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding: 0.35rem 0 0.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0.25rem;
 }
 
 .menuEntry {
     cursor: pointer;
-    padding: 4px 4px 4px 12px;
+    padding: 0.15rem 0.3rem 0.15rem 0.7rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-left: 2px solid transparent;
+    border-radius: 2px;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
 
-    &.active {
-        background-color: lightblue;
+    &:hover {
+        color: var(--amber-bright);
+        background: rgba(232, 163, 61, 0.07);
+        border-left-color: rgba(232, 163, 61, 0.45);
     }
 
-    &.hover {
-        background-color: #338;
-        color: white;
+    &.active {
+        color: var(--amber-bright);
+        background: rgba(232, 163, 61, 0.11);
+        border-left-color: var(--amber);
     }
 }
 
+/* the residual/data paths threading the diagram */
 .dataPath {
     stroke-width: 1.5;
-    stroke: rgba(black, 0.8);
+    stroke: var(--text-dim);
     fill: none;
 }
 

@@ -258,11 +258,14 @@ export const Commentary: React.FC = () => {
 
     return <>
         <div className={s.chapterControls}>
-            <button className={clsx(s.btn, s.prevNextBtn)} onClick={() => handlePhaseDeltaClick(-1)}>
+            <button className={clsx(s.btn, s.prevNextBtn)} onClick={() => handlePhaseDeltaClick(-1)} aria-label="Previous chapter">
                 <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <div className={s.chapterTitle}>Chapter: {phase.title}</div>
-            <button className={clsx(s.btn, s.prevNextBtn)} onClick={() => handlePhaseDeltaClick(1)}>
+            <div className={s.chapterHeading}>
+                <div className={s.chapterEyebrow}>Chapter</div>
+                <div className={s.chapterTitle}>{phase.title}</div>
+            </div>
+            <button className={clsx(s.btn, s.prevNextBtn)} onClick={() => handlePhaseDeltaClick(1)} aria-label="Next chapter">
                 <FontAwesomeIcon icon={faChevronRight} />
             </button>
         </div>
@@ -283,10 +286,10 @@ export const Commentary: React.FC = () => {
             </div>
         </div>
         <div className={s.controls}>
-            <button className={clsx(s.btn, "flex-[2] bg-blue-300 border border-blue-600 hover:bg-blue-400")} onClick={handleContinueClick}>
+            <button className={clsx(s.btn, s.continueBtn)} onClick={handleContinueClick}>
                 <div>Continue</div>
             </button>
-            <button className={clsx(s.btn, "ml-4 min-w-[100px] bg-white border border-blue-600 hover:bg-blue-200")} onClick={handleAdvanceClick}>
+            <button className={clsx(s.btn, s.skipBtn)} onClick={handleAdvanceClick}>
                 <div>Skip</div>
             </button>
         </div>
@@ -522,8 +525,8 @@ const SpaceToContinueHint: React.FC<{
     onClick: React.MouseEventHandler,
 }> = ({ top, onClick }) => {
 
-    return <div className={"absolute flex justify-center pointer-events-none top-0 left-0 right-0"} style={{ top, transform: `translateY(20px)` }}>
-        <div className={"flex-shrink py-2 px-4 bg-blue-200 shadow-md rounded-3xl pointer-events-auto text-black cursor-pointer"} onClick={onClick}>
+    return <div className={s.hintWrap} style={{ top, transform: `translateY(20px)` }}>
+        <div className={s.hint} onClick={onClick}>
              Press <span className={s.key}>Space</span> to continue
         </div>
     </div>;
@@ -558,7 +561,7 @@ const SectionHighlight: React.FC<{
 
     return <div className={s.sectionHighlightWrap} style={{ top: top - rectPad, height: svgH, width: svgW, left: -rectPad }}>
         <svg viewBox={`0 0 ${svgW} ${svgH}`} className={s.sectionHighlight}>
-            <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill="none" stroke="blue" strokeWidth={strokeWidth} opacity={strokeWidth} rx={5} ry={5} />
+            <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill="none" stroke="var(--amber)" strokeWidth={strokeWidth} opacity={strokeWidth * 0.9} rx={5} ry={5} />
             {/* <path d={`M ${x0} ${y0} L ${x1} ${y0} L ${x1} ${y1} L ${x0} ${y1} Z`} fill="none" stroke="blue" strokeWidth="3" /> */}
         </svg>
     </div>;

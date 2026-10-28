@@ -162,8 +162,8 @@ function projectToScreen(state: IProgramState, modelPos: Vec3) {
         0);
 }
 
-let weightSrcColor = new Vec4(0.4, 0.4, 0.9, 1);
-let workingSrcColor = new Vec4(0.3, 0.7, 0.3, 1);
+let weightSrcColor = new Vec4(0.42, 0.60, 0.68, 1);   // 青灰 — weights
+let workingSrcColor = new Vec4(0.91, 0.64, 0.24, 1);  // 琥珀 — activations
 
 let opColor = new Vec4(0.9, 0.9, 0.9, 1);
 let backWhiteColor = new Vec4(0.0, 0.0, 0.0, 1).mul(1.0);

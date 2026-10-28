@@ -71,7 +71,7 @@ export const Resizer: React.FC<{
                 onMouseDown={handleMouseDown}>
             </div>
             <div
-                className={clsx("x-resize-slide absolute bg-slate-200 pointer-events-none", vertical ? "w-full h-0 border-t" : "h-full w-0 border-l")}
+                className={clsx("x-resize-slide absolute pointer-events-none transition-colors duration-150", vertical ? "w-full h-0 border-t" : "h-full w-0 border-l", "border-white/[0.13] group-hover:border-amber/50")}
                 style={style}>
             </div>
         </>}

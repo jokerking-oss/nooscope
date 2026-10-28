@@ -1,119 +1,84 @@
 'use client';
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faCircleDollarToSlot, faEnvelope, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
 import s from './HomePage.module.scss';
-import { Tooltip } from '../utils/Tooltip';
+import { Header } from './Header';
 
 export const HomePage: React.FC = () => {
-    let [emailText, setEmailText] = useState('');
     let router = useRouter();
 
-    function showEmail(ev: React.MouseEvent) {
-        let last = 'bycroft';
-        let first = 'brendan';
-        let domain = 'moc.liamg';
-        domain = [...domain].reverse().join('');
-        let at = '_' + 'at' + '_';
-        setEmailText(text => text ? '' : `${first}.${last} ${at} ${domain}`);
-        ev.stopPropagation();
-        ev.preventDefault();
-    }
+    return <div className={s.page}>
+        <Header title="Instrument Index" />
 
-    function externalIcon() {
-        return <FontAwesomeIcon icon={faUpRightFromSquare} fontSize={10} className='ml-3 mr-1 relative top-[-1px]' />;
-    }
+        <div className={s.scroll}>
+            {/* ── the plate ─────────────────────────────────── */}
+            <section className={s.hero}>
+                <div className={s.heroRule} />
+                <h1 className={s.heroTitle}>
+                    An instrument for<br />
+                    <em>looking inside</em> a thought
+                </h1>
+                <p className={s.heroLede}>
+                    A working language model, cut open and set under glass. Every weight is
+                    visible; every operation can be followed by eye, from the first token
+                    embedding to the final logit.
+                </p>
+                <div className={s.heroRule} />
+            </section>
 
-    return <div className={s.homePage}>
-        <div className={s.headerSection}>
-            <div className={s.profilePic}>
-                <img src="/me.jpeg" alt="Profile Picture" />
-            </div>
-            <div className={s.nameSection}>
-                <div className={s.name}>
-                    Brendan Bycroft
-                </div>
-                <div className={s.subhead}>
-                    Software Engineer
-                </div>
-                <div className={s.links}>
-                    <Tooltip tip={<>Github /bbycroft {externalIcon()}</>}>
-                        <a href="https://github.com/bbycroft" rel="noopener noreferrer" target="_blank">
-                            <FontAwesomeIcon icon={faGithub} />
-                        </a>
-                    </Tooltip>
-                    <Tooltip tip={<>Twitter @brendanbycroft {externalIcon()}</>}>
-                        <a href="https://twitter.com/brendanbycroft" rel="noopener noreferrer" target="_blank">
-                            <FontAwesomeIcon icon={faTwitter} />
-                        </a>
-                    </Tooltip>
-                    <Tooltip tip={`Click to ${emailText ? 'Hide' : 'Reveal'}`}>
-                        <a onClick={showEmail}>
-                            <FontAwesomeIcon icon={faEnvelope} />
-                        </a>
-                    </Tooltip>
-                    <Tooltip tip={<>Tip securely via Stripe {externalIcon()}</>}>
-                        <a href="https://donate.stripe.com/dR68yQbhxauue8E6oo" rel="noopener noreferrer" target="_blank">
-                            <FontAwesomeIcon icon={faCircleDollarToSlot} />
-                        </a>
-                    </Tooltip>
-                </div>
-                <div className={s.emailText}>{emailText}</div>
-            </div>
-        </div>
+            {/* ── the one project ───────────────────────────── */}
+            <section className={s.projects}>
+                <div className={s.sectionLabel}>The Instrument</div>
 
-        <div className={s.projectsSection}>
-            <div className={s.sectionTitle}>Projects</div>
-            <div className={s.projectCard} onClick={() => router.push('/llm')}>
-                <div className={s.cardImageWrapper}>
-                    <div className={s.cardImage}>
-                        <img src="/images/llm-viz-screenshot2.png" alt="LLM Visualization Screenshot" />
+                <article className={s.card} onClick={() => router.push('/llm')}>
+                    <div className={s.cardPlate}>
+                        <img src="/images/llm-viz-screenshot2.png" alt="The transformer under observation" />
+                        <div className={s.cardPlateSheen} />
                     </div>
-                </div>
-                <div className={s.cardContent}>
-                    <div className={s.cardTitle}>
-                        <Link href={"/llm"}>
-                        {/* rel="noopener noreferrer" target="_blank"> */}
-                            LLM Visualization
-                        </Link>
-                    </div>
-                    <div className={s.cardText}>
-                        A visualization and walkthrough of the LLM algorithm that backs OpenAI's ChatGPT.
-                        Explore the algorithm down to every add & multiply, seeing the whole process in action.
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div className={s.divider} />
+                    <div className={s.cardBody}>
+                        <h2 className={s.cardTitle}>
+                            <Link href="/llm">NOOSCOPE — Transformer Observatory</Link>
+                        </h2>
+                        <p className={s.cardText}>
+                            A real-time 3D rendering of a GPT-style network executing a forward
+                            pass, running the actual weights in the browser. The geometry is the
+                            computation: each cube is a number, each slab a tensor, each thread
+                            of light a value moving through the model.
+                        </p>
+                        <div className={s.specs}>
+                            <div className={s.spec}>
+                                <span className={s.specKey}>Renderer</span>
+                                <span className={s.specVal}>WebGL2, custom</span>
+                            </div>
+                            <div className={s.spec}>
+                                <span className={s.specKey}>Inference</span>
+                                <span className={s.specVal}>WASM + GPU</span>
+                            </div>
+                            <div className={s.spec}>
+                                <span className={s.specKey}>Model</span>
+                                <span className={s.specVal}>nano-GPT, sort task</span>
+                            </div>
+                        </div>
+                        <div className={s.enter}>
+                            <span>Enter the observatory</span>
+                            <svg width="11" height="11" viewBox="0 0 10 10" fill="none" aria-hidden>
+                                <path d="M1 9L9 1M9 1H3.5M9 1V6.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+            </section>
 
-        <div className={s.projectsSection}>
-            <div className={s.sectionTitle}>Bio</div>
-            <div className={s.bioText}>
+            {/* ── colophon ──────────────────────────────────── */}
+            <footer className={s.colophon}>
+                <div className={s.heroRule} />
                 <p>
-                    Born and raised in New Zealand, I've been writing code ever since I first got my hands on a computer.
-                    After my Bsc in Maths and Physics<span className={s.footnoteRef}>1</span>, I have been working professionally as a software engineer since 2013.
+                    Built as a study in making the invisible legible — the same instinct that
+                    drives an oscilloscope, a cloud chamber, or an anatomical atlas.
                 </p>
-                <p>
-                    Over my career I've touched a whole variety of tech, from CUDA programming to web development. On the way becoming well versed in
-                    embedded C, distributed system architecture, databases, cloud infrastructure, numerous algorithms, 3D graphics, and much more.
-                </p>
-                <p>
-                    I've always sought to bring high performance to the things I build, the feature that many can't articulate but everyone can feel.
-                    Computers are ridiculously fast, and there's often so much left on the table.
-                </p>
-                <p>
-                    I have a tendency to roll-my-own, which invariably pays off in the long run: I understand how things work, can debug and fix them
-                    easily, and ensure they're tailored and optimized to the problem at hand. I also err on
-                    the side of a data-oriented approach, as most abstractions are unnecessary, and simple functions get you a long way.
-                </p>
-                <div className={s.footnotes}>
-                    <div className={s.footnote}>1. BSc in Mathematics and Physics from the University of Canterbury in 2012</div>
-                </div>
-            </div>
+            </footer>
         </div>
     </div>;
-}
+};

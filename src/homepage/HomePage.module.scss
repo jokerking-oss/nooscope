@@ -1,219 +1,271 @@
+@import '@/styles/variables.scss';
 
-.homePage {
-    flex: 1 0 auto;
+/* ─────────────────────────────────────────────────────────────
+   Index page: a single plate, generously spaced, set on the
+   dark field. Serif display, mono labels.
+   ───────────────────────────────────────────────────────────── */
+
+.page {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: #06070a;
+    overflow: hidden;
+}
+
+.scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f3f3f3;
-    padding-bottom: 20px;
+    padding: 0 1.5rem 4rem;
 }
 
-.headerSection {
+/* ── hero ───────────────────────────────────────────────────── */
+
+.hero {
+    width: 100%;
+    max-width: 46rem;
+    padding: 4.5rem 0 3rem;
+    text-align: center;
+}
+
+.heroRule {
+    height: 1px;
+    background: linear-gradient(90deg,
+        rgba(232, 163, 61, 0) 0%,
+        rgba(232, 163, 61, 0.28) 30%,
+        rgba(86, 200, 216, 0.22) 70%,
+        rgba(232, 163, 61, 0) 100%);
+}
+
+.heroTitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3.1rem);
+    font-weight: 300;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 2rem 0 1.4rem;
+
+    em {
+        font-style: italic;
+        color: var(--amber);
+    }
+}
+
+.heroLede {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 350;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 34rem;
+    margin: 0 auto 2.4rem;
+    text-align: justify;
+}
+
+/* ── section label ──────────────────────────────────────────── */
+
+.sectionLabel {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 1.4rem;
+    text-align: center;
+}
+
+.projects {
+    width: 100%;
+    max-width: 58rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ── the plate ──────────────────────────────────────────────── */
+
+.card {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 2.7em 0;
-    background-color: #3b435e;
-    color: white;
-    width: 100%;
-    box-shadow: 0 0 12px 3px rgb(24 24 24);
+    cursor: pointer;
+    background: linear-gradient(180deg, #101420 0%, #0a0c11 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.9);
+    transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
 
-    @media (max-width: 600px) {
+    &:hover {
+        border-color: rgba(232, 163, 61, 0.28);
+        box-shadow: 0 22px 60px -18px rgba(0, 0, 0, 0.95),
+                    0 0 0 1px rgba(232, 163, 61, 0.08);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 820px) {
         flex-direction: column;
     }
 }
 
-.profilePic {
-    flex: 0 0 auto;
-    width: 200px;
-    height: 200px;
+.cardPlate {
     position: relative;
+    flex: 0 0 auto;
+    width: 19rem;
+    min-height: 15rem;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
 
     img {
         position: absolute;
-        height: 100%;
+        inset: 0;
         width: 100%;
-        border-radius: 50%;
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.705);
-    }
-}
-
-.nameSection {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-left: 4em;
-
-    @media (max-width: 600px) {
-        align-items: center;
-        margin-left: 0;
-        margin-top: 1em;
-    }
-}
-
-.name {
-    font-size: 2.5em;
-    font-weight: bold;
-    margin-bottom: 0.2em;
-}
-
-.subhead {
-    font-size: 1.2em;
-    color: #c7c7c7;
-    margin-bottom: 1.2em;
-}
-
-.links {
-    @media (max-width: 600px) {
-        align-self: stretch;
-    }
-    display: flex;
-    justify-content: space-between;
-    a {
-        font-size: 1.4em;
-        // margin-right: 1.5em;
-        color: rgb(187, 187, 187);
-        cursor: pointer;
-    }
-}
-
-.emailText {
-    position: relative;
-    height: 0;
-    top: 1.2em;
-    font-size: 1.0em;
-    // height: 1.0em;
-    // margin-bottom: -1.0em;
-    color: rgb(204, 204, 204);
-}
-
-.divider {
-    margin-top: 2em;
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-}
-
-
-.projectsSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2em;
-    max-width: 100%;
-}
-
-.sectionTitle {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 1.0em;
-}
-
-.bioText {
-    max-width: 80%;
-    width: 1200px;
-    text-align: justify;
-
-    @media (max-width: 600px) {
-        max-width: 95%;
-    }
-
-    p {
-        margin: 10px;
-    }
-}
-
-.footnoteRef {
-    position: relative;
-    font-size: 80%;
-    padding: 0 2px;
-    top: -0.5em;
-}
-
-.footnotes {
-    align-self: stretch;
-    border-top: 1px solid #ccc;
-    margin: 10px 0 10px;
-    padding-top: 10px;
-    padding-left: 10px;
-}
-
-.footnote {
-    color: #444;
-}
-
-.projectCard {
-    // background-color: white;
-    display: flex;
-    flex-direction: row;
-
-    margin-bottom: 1em;
-    padding: 0 1em;
-
-    border-radius: 4px;
-    box-shadow: 0 0 5px 0 rgba(95, 95, 95, 0.4);
-
-    max-width: 80%;
-    width: 1200px;
-
-    @media (max-width: 600px) {
-        max-width: 95%;
-    }
-
-    cursor: pointer;
-    &:hover {
-        background-color: rgba(#c7c7c7, 0.2);
-    }
-}
-
-.cardImageWrapper {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 200px;
-    position: relative;
-    border-right: 1px solid #ccc;
-}
-
-.cardImage {
-    flex: 0 0 auto;
-    width: 200px;
-
-    @media (max-width: 500px) {
-        width: 140px;
-    }
-
-    min-height: 200px;
-    position: relative;
-
-    img {
-        position: absolute;
         height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+        filter: saturate(0.85) contrast(1.05);
+        transition: opacity 240ms ease, filter 240ms ease;
+    }
+
+    @media (max-width: 820px) {
         width: 100%;
-        border-radius: 4px;
+        min-height: 11rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 }
 
-.cardContent {
+.card:hover .cardPlate img {
+    opacity: 1;
+    filter: saturate(1) contrast(1.1);
+}
+
+/* a warm wash over the plate, tying the photo to the amber signal */
+.cardPlateSheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(160deg,
+        rgba(232, 163, 61, 0.10) 0%,
+        rgba(86, 200, 216, 0.05) 45%,
+        rgba(6, 7, 10, 0.55) 100%);
+}
+
+.cardBody {
     flex: 1 1 auto;
-    padding: 1em;
+    min-width: 0;
+    padding: 1.8rem 2rem;
     display: flex;
     flex-direction: column;
 }
 
 .cardTitle {
-    color: black;
-    font-size: 1.3em;
-    font-weight: bold;
-    margin-bottom: 1.0em;
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 0.9rem;
 
     a {
-        color: black;
+        color: var(--text);
         text-decoration: none;
+        transition: color 160ms ease;
+
         &:hover {
-            text-decoration: underline;
+            color: var(--amber-bright);
         }
+    }
+}
+
+.cardText {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 350;
+    line-height: 1.72;
+    color: var(--text-muted);
+    text-align: justify;
+    margin: 0 0 1.4rem;
+}
+
+/* ── spec strip: mono key/value, engraved ───────────────────── */
+
+.specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    margin-bottom: 1.3rem;
+}
+
+.spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.specKey {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+.specVal {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--text-muted);
+}
+
+/* ── enter affordance ───────────────────────────────────────── */
+
+.enter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgba(232, 163, 61, 0.3);
+    border-radius: 3px;
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.card:hover .enter {
+    color: #0a0c11;
+    background: var(--amber);
+    border-color: var(--amber-bright);
+}
+
+/* ── colophon ───────────────────────────────────────────────── */
+
+.colophon {
+    width: 100%;
+    max-width: 46rem;
+    padding: 3.5rem 0 0;
+
+    p {
+        font-family: var(--font-display);
+        font-size: 0.86rem;
+        font-style: italic;
+        line-height: 1.7;
+        color: var(--text-faint);
+        text-align: center;
+        margin: 1.5rem 0 0;
     }
 }

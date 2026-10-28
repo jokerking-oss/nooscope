@@ -1,0 +1,152 @@
+.header {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 3.25rem;
+    padding: 0 1.15rem;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0) 100%),
+        #0a0c11;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 20;
+}
+
+/* the amber filament that runs along the bottom edge of the chassis */
+.header::after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg,
+        rgba(232, 163, 61, 0) 0%,
+        rgba(232, 163, 61, 0.45) 18%,
+        rgba(86, 200, 216, 0.28) 52%,
+        rgba(232, 163, 61, 0) 100%);
+    pointer-events: none;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+}
+
+/* ── sigil: a slow-breathing aperture ─────────────────────── */
+
+.sigil {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+}
+
+.sigilRing {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 163, 61, 0.5);
+    animation: sigil-breathe 5.5s ease-in-out infinite;
+}
+
+.sigilCore {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--amber-bright);
+    box-shadow: 0 0 9px 1px rgba(232, 163, 61, 0.75);
+    animation: sigil-pulse 5.5s ease-in-out infinite;
+}
+
+@keyframes sigil-breathe {
+    0%, 100% { transform: scale(0.86); opacity: 0.55; }
+    50%      { transform: scale(1.04); opacity: 1; }
+}
+
+@keyframes sigil-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sigilRing, .sigilCore { animation: none; opacity: 0.8; }
+}
+
+.titles {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.wordmark {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+    flex: 0 0 auto;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    flex: 0 0 auto;
+}
+
+.homeLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.3rem 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 3px;
+    transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.homeLink:hover {
+    color: var(--amber);
+    border-color: rgba(232, 163, 61, 0.35);
+    background: rgba(232, 163, 61, 0.06);
+}

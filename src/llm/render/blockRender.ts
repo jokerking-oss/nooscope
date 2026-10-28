@@ -193,9 +193,10 @@ export function initBlockRender(ctx: IGLContext | null) {
                 vec3 block16 = v_blockPos / 16.0;
                 vec3 pxPerBlock16 = 1.0 / fwidth(block16);
                 float strength16 = min(min(pxPerBlock16.x, pxPerBlock16.y), pxPerBlock16.z);
-                vec3 colorEdge = vec3(1.0, 1.0, 1.0);
-                vec3 color16 = vec3(1.0, 1.0, 1.0) * 0.7;
-                vec3 color256 = vec3(1.0, 1.0, 1.0);
+                // engraved rules: bone-white cube edges, amber 16-grid, cyan 256-grid
+                vec3 colorEdge = vec3(0.96, 0.94, 0.90);
+                vec3 color16 = vec3(0.95, 0.74, 0.42) * 0.85;
+                vec3 color256 = vec3(0.55, 0.88, 0.95);
 
                 // if we're zoomed out enough, show 256 & (256 * 16) grid lines
                 // the 16 grid lines are faded out by this point (fade out between 10px -> 1px)
@@ -204,8 +205,8 @@ export function initBlockRender(ctx: IGLContext | null) {
                     pxPerBlock16 = 1.0 / fwidth(block16);
                     strength16 = min(min(pxPerBlock16.x, pxPerBlock16.y), pxPerBlock16.z);
                     color16 = color256;
-                    // orange
-                    color256 = vec3(1.0, 0.7, 0.4);
+                    // the coarsest rule picks up the amber signal tone
+                    color256 = vec3(1.0, 0.72, 0.34);
                 }
 
                 float visibility16 = smoothstep(2.0, 10.0, strength16); // below 10px between lines, fade out
@@ -226,7 +227,8 @@ export function initBlockRender(ctx: IGLContext | null) {
                 baseColor = mix(baseColor, color, edgeWeight);
             }
 
-            vec3 color = mix(baseColor * 0.7, u_baseColor.rgb, u_highlight);
+            // lift the unlit face so the geometry stays readable against the void
+            vec3 color = mix(baseColor * 0.92, u_baseColor.rgb, u_highlight);
 
             o_color = vec4(color, 1) * u_baseColor.a;
         }`;
@@ -346,7 +348,7 @@ export function renderBlocksSimple(blockRender: IBlockRender, cubes: IBlkDef[]) 
     for (let cube of cubes) {
         gl.uniform3f(locs.u_size, cube.dx, cube.dy, cube.dz);
         gl.uniform3f(locs.u_offset, cube.x, cube.y, cube.z);
-        let baseColor = (cube.t === 'w' ? new Vec4(0.3, 0.3, 1.0, 1) : new Vec4(0.4, 0.8, 0.4, 1)).mul(cube.highlight);
+        let baseColor = (cube.t === 'w' ? new Vec4(0.42, 0.60, 0.68, 1) : new Vec4(0.91, 0.64, 0.24, 1)).mul(cube.highlight);
         gl.uniform4f(locs.u_baseColor, baseColor.x, baseColor.y, baseColor.z, baseColor.w);
         gl.drawArrays(geom.type, 0, geom.numVerts);
     }

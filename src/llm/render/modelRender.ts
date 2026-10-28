@@ -131,15 +131,19 @@ export function renderModel(state: IProgramState) {
     let { modelMtx, viewMtx } = camera;
     let { camPos } = cameraToMatrixView(camera);
 
+    // Three-point rig tuned for the dark field:
+    //   key   — cold white, high and forward; carries the geometry
+    //   fill  — amber, low and behind; the warm rim of the signal
+    //   rim   — cyan, off-axis; separates the model from the void
     let lightPos = [
         new Vec3(100, 400, 600),
         new Vec3(-200, -300, -300),
         new Vec3(200, -100, 0),
     ];
     let lightColor = [
-        new Vec3(1, 0.2, 0.2),
-        new Vec3(1, 0.2, 0.2),
-        new Vec3(1, 0.2, 0.2),
+        new Vec3(1.15, 1.10, 1.02),   // key: cold white
+        new Vec3(0.95, 0.62, 0.26),   // fill: amber
+        new Vec3(0.30, 0.72, 0.80),   // rim: cyan
     ];
     let lightPosArr = new Float32Array(3 * 3);
     let lightColorArr = new Float32Array(3 * 3);

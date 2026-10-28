@@ -76,15 +76,18 @@ export const TocDiagram: React.FC<{
 
     activeId = activePhase ?? activeId;
 
+    // NOOSCOPE: the diagram is drawn on the dark field, so every element
+    // is re-toned — desaturated and lifted — while keeping the hue
+    // distinctions that make the architecture legible.
     let colors = {
-        ln: '#e9f29e',
-        multihead: '#f2d59e',
-        feedForward: '#9ef2f2',
-        tokEmbed: '#f0a8fc',
-        linear: '#a8c3fc',
-        softmax: '#a8fcaf',
-        line: '#000',
-        focus: '#338',
+        ln: '#8a8f5e',
+        multihead: '#c99a4e',
+        feedForward: '#4e8f95',
+        tokEmbed: '#9a6fa8',
+        linear: '#6b7fae',
+        softmax: '#5f9a68',
+        line: '#7c8494',
+        focus: '#e8a33d',
     };
 
     let widthStd = 4;
@@ -232,9 +235,9 @@ export const TocDiagram: React.FC<{
     function renderPlus(pos: Vec3, key: string) {
         let plusLen = 4;
         return <g key={key}>
-            <circle cx={pos.x} cy={pos.y} r={6} stroke='#000000' fill='white' />;
-            <line x1={pos.x - plusLen} y1={pos.y} x2={pos.x + plusLen} y2={pos.y} stroke='#000000' strokeWidth={1} />;
-            <line x1={pos.x} y1={pos.y - plusLen} x2={pos.x} y2={pos.y + plusLen} stroke='#000000' strokeWidth={1} />;
+            <circle cx={pos.x} cy={pos.y} r={6} stroke={colors.line} fill='#131720' />;
+            <line x1={pos.x - plusLen} y1={pos.y} x2={pos.x + plusLen} y2={pos.y} stroke={colors.line} strokeWidth={1} />;
+            <line x1={pos.x} y1={pos.y - plusLen} x2={pos.x} y2={pos.y + plusLen} stroke={colors.line} strokeWidth={1} />;
         </g>;
     }
 
@@ -314,8 +317,8 @@ export const TocDiagram: React.FC<{
                     <rect className={s.block} width={size.x} height={size.y} fill={el.color ?? '#000000'} rx={3} ry={3} strokeDasharray={dashArray} stroke={stroke} />
                     {el.items!.map((item, i) => renderEl(item, i))}
                     {renderResiduals()}
-                    {el.special === 'transformer' && <text fontSize={13} textAnchor='start' x={4} y={14} fill={'#555'}>transformer i</text>}
-                    {el.special === 'llm' && <text fontSize={13} textAnchor='start' x={4} y={14} fill={'#333'}>LLM</text>}
+                    {el.special === 'transformer' && <text fontSize={13} textAnchor='start' x={4} y={14} fill={'#8b93a4'}>transformer i</text>}
+                    {el.special === 'llm' && <text fontSize={13} textAnchor='start' x={4} y={14} fill={'#dde2ea'}>LLM</text>}
                 </>;
                 opacityDimmed = 1.0;
                 break;
@@ -324,13 +327,13 @@ export const TocDiagram: React.FC<{
                     let topY = Math.round(0.3 * size.y);
                     let path = `M${size.x/2},${topY} L${xPos},${topY} L${xPos},${size.y - 2}`;
                     return <>
-                        <path d={path} stroke={'black'} fill='none' className={s.dataPath} />
+                        <path d={path} stroke={colors.line} fill='none' className={s.dataPath} />
                         {renderArrow(new Vec3(xPos, size.y), new Vec3(xPos, size.y-10), 'multihead-arrow')}
                     </>;
                 }
 
                 content = <>
-                    <line className={s.gap} x1={0} y1={0} x2={0} y2={size.y} stroke={'black'} />
+                    <line className={s.gap} x1={0} y1={0} x2={0} y2={size.y} stroke={colors.line} />
                     {el.gapType === 'add' && renderPlus(new Vec3(size.x / 2, size.y / 2), 'add')}
                     {el.arrow && renderArrow(new Vec3(size.x / 2, size.y), new Vec3(size.x / 2, 0), '0')}
                     {el.gapType === 'multihead' && <>{renderMultihead(size.x / 2 - 30)}{renderMultihead(size.x / 2 + 30)}</>}
@@ -389,14 +392,14 @@ export const TocDiagram: React.FC<{
                 return <React.Fragment key={i}>
                     <rect x={offsets[i]} y={0} width={widths[i] + 1} height={20} fill={colors[i]} />
                     <text x={offsets[i]} y={16} fontSize={14}>{seg.replaceAll(' ', '\xa0')}</text>
-                    <text x={offsets[i] + widths[i] / 2} y={30} fontSize={9} textAnchor='middle' fill={'#338a'}>{ids[i]}</text>
+                    <text x={offsets[i] + widths[i] / 2} y={30} fontSize={9} textAnchor='middle' fill={'#7c8494'}>{ids[i]}</text>
                 </React.Fragment>;
             })}
             {egTextSegs.map((seg, i) => {
                 return <React.Fragment key={i}>
                     <rect x={egPosX} y={egTopY + 20 * i} width={egWidths[i] + 1} height={20} fill={egColor} />
                     <text x={egPosX} y={egTopY + 20 * i + 16} fontSize={12} fillOpacity={egPct[i]}>{seg.replaceAll(' ', '\xa0')}</text>
-                    <text x={egPosX + egMaxWidth + egIdWidth} y={egTopY + 20 * i + 13} fontSize={9} textAnchor='end' fill={'#338a'}>{egIds[i]}</text>
+                    <text x={egPosX + egMaxWidth + egIdWidth} y={egTopY + 20 * i + 13} fontSize={9} textAnchor='end' fill={'#7c8494'}>{egIds[i]}</text>
                 </React.Fragment>;
             })}
             <rect x={egPosX+1} y={egTopY+1} width={egMaxWidth + egIdWidth + 4} height={20 * egTextSegs.length - 2} fill={'none'} stroke={egColor} strokeDasharray={'4,4'} />
@@ -490,7 +493,7 @@ export const TocDiagram: React.FC<{
             <defs>
                 <mask id={"hole" + i}>
                     <rect x={tl.x - pad} y={tl.y - pad} width={br.x - tl.x + 2 * pad} height={br.y - tl.y + 2 * pad} fill={'white'} />
-                    <rect x={tl.x} y={tl.y} width={br.x - tl.x} height={br.y - tl.y} fill="black"/>
+                    <rect x={tl.x} y={tl.y} width={br.x - tl.x} height={br.y - tl.y} fill="black" />
                 </mask>
             </defs>
             <rect x={tl.x} y={tl.y} width={br.x - tl.x} height={br.y - tl.y} fill={color}
@@ -635,7 +638,7 @@ export const MenuEntry: React.FC<{
 
     return <div
         ref={setDivRef}
-        className={clsx("cursor-pointer p-1 pl-3 " + s.menuEntry, active && "bg-blue-200", hover && "bg-blue-800 text-white")}
+        className={clsx("cursor-pointer p-1 pl-3 " + s.menuEntry, active && s.active, hover && s.hover)}
         onClick={handleClick}
         onMouseEnter={ev => handleHover(ev, true)}
         onMouseLeave={ev => handleHover(ev, false)}

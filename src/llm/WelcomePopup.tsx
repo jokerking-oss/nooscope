@@ -51,29 +51,26 @@ export const WelcomePopup: React.FC<{}> = () => {
         return null;
     }
 
-    return <ModalWindow className={s.modalWindow} backdropClassName={s.modalWindowBackdrop} onBackdropClick={hide}>
+    return <ModalWindow className={s.welcomePanel} backdropClassName={s.modalWindowBackdrop} onBackdropClick={hide}>
         <div className={s.header}>
-            <div className={s.title}>Welcome!</div>
+            <div className={s.title}>An instrument for looking inside a thought</div>
         </div>
         <div className={s.body}>
-            {/* <div className={s.image}>
-                <Image src={IntroImage} alt={"LLM diagram"} />
-            </div> */}
-            <div style={{ width: 600, flex: '0 0 auto' }}>
+            <div style={{ width: 600, flex: '0 0 auto', maxWidth: '100%' }}>
                 <TocDiagram activePhase={null} onEnterPhase={hide} />
             </div>
             <div className={s.text}>
-                <p>This is an interactive 3D Visualization of a Large Language Model (LLM),
-                    of the likes that powers GPT-3 & ChatGPT.</p>
-                <p>We show a very small model of the same design, to help you understand how
-                    these models work.</p>
-                <p>As well as being interactive, we provide a walkthrough of the model
-                    showing the step-by-step process of how it works, with every single add, multiply &
-                    math operation described.</p>
+                <p>This is an interactive 3D visualization of a Large Language Model — the
+                    architecture behind GPT-2, GPT-3 and their descendants.</p>
+                <p>The model on the bench is a very small one of the same design, small enough
+                    that every weight is visible and every operation can be followed by eye.</p>
+                <p>Drive it with the walkthrough: a guided pass through the whole forward
+                    computation, describing each add, each multiply, and each reshaping of the
+                    tensor as it happens.</p>
             </div>
         </div>
         <div className={s.footer}>
-            <button className={s.button} onClick={hide}>Get Started</button>
+            <button className={s.button} onClick={hide}>Begin observation</button>
         </div>
     </ModalWindow>;
 };
@@ -92,7 +89,7 @@ let WelcomeContext = createContext(new WelcomeManager());
 export const InfoButton: React.FC<{}> = () => {
     let ctx = useContext(WelcomeContext);
 
-    return <div onClick={() => ctx.showWelcomeDialog()} className={s.infoBtn}>
+    return <div onClick={() => ctx.showWelcomeDialog()} className={s.infoBtn} title="About this instrument">
         <FontAwesomeIcon icon={faCircleQuestion} />
     </div>;
 };
